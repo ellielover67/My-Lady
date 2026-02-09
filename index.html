@@ -60,26 +60,22 @@
             transition: 0.3s;
         }
 
-        /* The Realistic Blue Ladybug SVG Styling */
-        .ladybug-container {
-            width: 80px;
-            height: 80px;
-            margin: 0 auto 15px;
+        /* Styling for the animated ladybug image */
+        .moving-bug {
+            position: fixed;
+            width: 50px;
+            height: 50px;
+            z-index: 5;
+            pointer-events: none;
+            transition: all 3s ease-in-out; /* Makes them move smoothly */
+        }
+
+        .main-bug-img {
+            width: 100px;
+            margin-bottom: 20px;
         }
 
         .heart { color: #90e0ef; font-size: 4rem; animation: pulse 1.5s infinite; }
-
-        .crawling-ladybug {
-            position: fixed;
-            z-index: 5;
-            pointer-events: none;
-            animation: wobble 2s ease-in-out infinite;
-        }
-
-        @keyframes wobble {
-            0%, 100% { transform: rotate(-5deg); }
-            50% { transform: rotate(5deg); }
-        }
 
         @keyframes pulse {
             0%, 100% { transform: scale(1); opacity: 0.8; }
@@ -90,15 +86,7 @@
 <body>
 
     <div id="login-screen">
-        <div class="ladybug-container">
-            <svg viewBox="0 0 100 100">
-                <circle cx="50" cy="40" r="15" fill="#001219" /> <circle cx="50" cy="60" r="35" fill="#00b4d8" /> <rect x="48" y="35" width="4" height="40" fill="#001219" /> <circle cx="35" cy="55" r="5" fill="#001219" />
-                <circle cx="65" cy="55" r="5" fill="#001219" />
-                <circle cx="30" cy="70" r="5" fill="#001219" />
-                <circle cx="70" cy="70" r="5" fill="#001219" />
-                <circle cx="50" cy="82" r="5" fill="#001219" />
-            </svg>
-        </div>
+        <img src="blue-ladybug.png" class="main-bug-img" alt="Ladybug">
         <h2>Enter the Code</h2>
         <input type="password" id="passwordInput" placeholder="Enter password...">
         <br>
@@ -120,40 +108,31 @@
             if (pass === "201125") {
                 document.getElementById('login-screen').style.display = 'none';
                 document.getElementById('secret-content').style.display = 'block';
-                startLadybugRain();
+                spawnMovingBugs();
             } else {
                 document.getElementById('error-msg').style.display = 'block';
             }
         }
 
-        function startLadybugRain() {
-            for (let i = 0; i < 40; i++) {
-                setTimeout(() => {
-                    const bug = document.createElement('div');
-                    bug.className = 'crawling-ladybug';
-                    bug.innerHTML = `
-                        <svg width="40" height="40" viewBox="0 0 100 100">
-                            <circle cx="50" cy="40" r="15" fill="#001219" />
-                            <circle cx="50" cy="60" r="35" fill="#90e0ef" />
-                            <rect x="48" y="35" width="4" height="40" fill="#001219" />
-                            <circle cx="35" cy="55" r="5" fill="#001219" />
-                            <circle cx="65" cy="55" r="5" fill="#001219" />
-                            <circle cx="30" cy="70" r="5" fill="#001219" />
-                            <circle cx="70" cy="70" r="5" fill="#001219" />
-                        </svg>`;
-                    
+        function spawnMovingBugs() {
+            for (let i = 0; i < 15; i++) {
+                const bug = document.createElement('img');
+                bug.src = 'blue-ladybug.png';
+                bug.className = 'moving-bug';
+                
+                // Random start position
+                bug.style.left = Math.random() * 100 + 'vw';
+                bug.style.top = Math.random() * 100 + 'vh';
+                
+                document.body.appendChild(bug);
+
+                // Make them move every 3 seconds
+                setInterval(() => {
                     bug.style.left = Math.random() * 100 + 'vw';
-                    bug.style.top = '-50px';
-                    bug.style.transition = `top ${Math.random() * 4 + 4}s linear`;
-                    
-                    document.body.appendChild(bug);
-
-                    setTimeout(() => {
-                        bug.style.top = '110vh';
-                    }, 100);
-
-                    setTimeout(() => bug.remove(), 8000);
-                }, i * 250);
+                    bug.style.top = Math.random() * 100 + 'vh';
+                    // Rotate bug to face movement direction
+                    bug.style.transform = `rotate(${Math.random() * 360}deg)`;
+                }, 3000);
             }
         }
     </script>
