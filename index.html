@@ -6,7 +6,7 @@
     <title>For My Ladybug ❤️</title>
     <style>
         body {
-            background-color: #03045e; /* Deep Blue */
+            background-color: #03045e;
             background-image: radial-gradient(#0077b6 15%, transparent 16%),
                               radial-gradient(#0077b6 15%, transparent 16%);
             background-size: 60px 60px;
@@ -22,7 +22,7 @@
         }
 
         #login-screen, #secret-content {
-            background: #001219; /* Very Dark Blue */
+            background: #001219;
             padding: 40px;
             border-radius: 30px;
             border: 3px solid #00b4d8;
@@ -60,14 +60,11 @@
             transition: 0.3s;
         }
 
-        button:hover { background: #90e0ef; transform: scale(1.05); }
-
-        /* Styling the Blue Ladybug Icon */
-        .ladybug-svg {
-            width: 60px;
-            height: 60px;
-            fill: #00b4d8; /* Deep Blue Ladybug color */
-            margin-bottom: 10px;
+        /* The Realistic Blue Ladybug SVG Styling */
+        .ladybug-container {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 15px;
         }
 
         .heart { color: #90e0ef; font-size: 4rem; animation: pulse 1.5s infinite; }
@@ -76,19 +73,32 @@
             position: fixed;
             z-index: 5;
             pointer-events: none;
+            animation: wobble 2s ease-in-out infinite;
+        }
+
+        @keyframes wobble {
+            0%, 100% { transform: rotate(-5deg); }
+            50% { transform: rotate(5deg); }
         }
 
         @keyframes pulse {
-            0% { transform: scale(1); opacity: 0.8; }
+            0%, 100% { transform: scale(1); opacity: 0.8; }
             50% { transform: scale(1.1); opacity: 1; }
-            100% { transform: scale(1); opacity: 0.8; }
         }
     </style>
 </head>
 <body>
 
     <div id="login-screen">
-        <svg class="ladybug-svg" viewBox="0 0 512 512"><path d="M256 32a192 192 0 0 0 -192 192c0 10.7 1.2 21 3.4 31.1C24.4 274.6 0 316.5 0 362.7c0 71.4 57.8 129.3 129.3 129.3 35.8 0 68.2-14.5 91.7-38 11.2 3.8 23.2 6 35 6s23.8-2.2 35-6c23.5 23.5 55.9 38 91.7 38 71.4 0 129.3-57.8 129.3-129.3 0-46.1-24.4-88.1-67.4-107.6 2.2-10.1 3.4-20.4 3.4-31.1A192 192 0 0 0 256 32zM160 224a32 32 0 1 1 32 32 32 32 0 0 1 -32-32zm160 32a32 32 0 1 1 32-32 32 32 0 0 1 -32 32z"/></svg>
+        <div class="ladybug-container">
+            <svg viewBox="0 0 100 100">
+                <circle cx="50" cy="40" r="15" fill="#001219" /> <circle cx="50" cy="60" r="35" fill="#00b4d8" /> <rect x="48" y="35" width="4" height="40" fill="#001219" /> <circle cx="35" cy="55" r="5" fill="#001219" />
+                <circle cx="65" cy="55" r="5" fill="#001219" />
+                <circle cx="30" cy="70" r="5" fill="#001219" />
+                <circle cx="70" cy="70" r="5" fill="#001219" />
+                <circle cx="50" cy="82" r="5" fill="#001219" />
+            </svg>
+        </div>
         <h2>Enter the Code</h2>
         <input type="password" id="passwordInput" placeholder="Enter password...">
         <br>
@@ -117,15 +127,24 @@
         }
 
         function startLadybugRain() {
-            for (let i = 0; i < 30; i++) {
+            for (let i = 0; i < 40; i++) {
                 setTimeout(() => {
                     const bug = document.createElement('div');
-                    // Creating a blue ladybug SVG for the animation
-                    bug.innerHTML = `<svg width="30" height="30" viewBox="0 0 512 512" style="fill: #90e0ef;"><path d="M256 32a192 192 0 0 0 -192 192c0 10.7 1.2 21 3.4 31.1C24.4 274.6 0 316.5 0 362.7c0 71.4 57.8 129.3 129.3 129.3 35.8 0 68.2-14.5 91.7-38 11.2 3.8 23.2 6 35 6s23.8-2.2 35-6c23.5 23.5 55.9 38 91.7 38 71.4 0 129.3-57.8 129.3-129.3 0-46.1-24.4-88.1-67.4-107.6 2.2-10.1 3.4-20.4 3.4-31.1A192 192 0 0 0 256 32z"/></svg>`;
                     bug.className = 'crawling-ladybug';
+                    bug.innerHTML = `
+                        <svg width="40" height="40" viewBox="0 0 100 100">
+                            <circle cx="50" cy="40" r="15" fill="#001219" />
+                            <circle cx="50" cy="60" r="35" fill="#90e0ef" />
+                            <rect x="48" y="35" width="4" height="40" fill="#001219" />
+                            <circle cx="35" cy="55" r="5" fill="#001219" />
+                            <circle cx="65" cy="55" r="5" fill="#001219" />
+                            <circle cx="30" cy="70" r="5" fill="#001219" />
+                            <circle cx="70" cy="70" r="5" fill="#001219" />
+                        </svg>`;
+                    
                     bug.style.left = Math.random() * 100 + 'vw';
                     bug.style.top = '-50px';
-                    bug.style.transition = `top ${Math.random() * 3 + 3}s linear`;
+                    bug.style.transition = `top ${Math.random() * 4 + 4}s linear`;
                     
                     document.body.appendChild(bug);
 
@@ -133,8 +152,8 @@
                         bug.style.top = '110vh';
                     }, 100);
 
-                    setTimeout(() => bug.remove(), 6000);
-                }, i * 300);
+                    setTimeout(() => bug.remove(), 8000);
+                }, i * 250);
             }
         }
     </script>
