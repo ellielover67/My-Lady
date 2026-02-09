@@ -3,64 +3,93 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>For Alyna ❤️</title>
+    <title>A Message for Alyna</title>
     <style>
         body {
-            background-color: #fff0f3;
+            background-color: #1a1a1a;
+            color: #ff4d6d;
+            font-family: 'Arial', sans-serif;
             display: flex;
-            flex-direction: column;
             align-items: center;
             justify-content: center;
             height: 100vh;
             margin: 0;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            overflow: hidden;
+        }
+
+        /* Password Screen Styling */
+        #login-screen {
             text-align: center;
-            color: #c9184a;
+            background: #2d2d2d;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            z-index: 10;
         }
 
-        .container {
-            padding: 20px;
-            border: 2px solid #ffb3c1;
-            border-radius: 20px;
-            background: white;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        input {
+            padding: 10px;
+            border-radius: 5px;
+            border: none;
+            margin: 10px 0;
+            text-align: center;
+            font-size: 1.2rem;
         }
 
-        h1 { font-size: 3rem; margin-bottom: 10px; }
-        p { font-size: 1.5rem; }
-        .heart {
-            font-size: 5rem;
-            animation: beat 1s infinite;
-            margin: 20px 0;
+        button {
+            background: #ff4d6d;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
         }
 
-        @keyframes beat {
+        /* Hidden Content */
+        #secret-content {
+            display: none;
+            text-align: center;
+        }
+
+        .heart { font-size: 5rem; animation: pulse 1s infinite; }
+        @keyframes pulse {
             0% { transform: scale(1); }
             50% { transform: scale(1.1); }
             100% { transform: scale(1); }
-        }
-
-        .signature {
-            margin-top: 30px;
-            font-style: italic;
-            font-size: 1.2rem;
-            color: #ff4d6d;
         }
     </style>
 </head>
 <body>
 
-    <div class="container">
-        <div class="heart">❤️</div>
-        <h1>Happy Valentine's Day, Alyna!</h1>
-        <p>You make every day feel like a dream.</p>
-        <p>I'm so lucky to have you by my side.</p>
-        
-        <div class="signature">
-            Forever yours, <br>
-            <strong>Yusuf</strong>
-        </div>
+    <div id="login-screen">
+        <h2>Enter the Secret Code</h2>
+        <input type="password" id="passwordInput" placeholder="Enter password...">
+        <br>
+        <button onclick="checkPassword()">Unlock My Heart</button>
+        <p id="error-msg" style="color: #ffb3c1; font-size: 0.8rem; display: none;">Oops! Wrong code.</p>
     </div>
 
+    <div id="secret-content">
+        <div class="heart">❤️</div>
+        <h1>Happy Valentine's Day, Alyna!</h1>
+        <p>You are my favorite person in the world.</p>
+        <p>— From Yusuf</p>
+    </div>
+
+    <script>
+        function checkPassword() {
+            const pass = document.getElementById('passwordInput').value;
+            const correctPass = "201125";
+            
+            if (pass === correctPass) {
+                document.getElementById('login-screen').style.display = 'none';
+                document.getElementById('secret-content').style.display = 'block';
+                document.body.style.backgroundColor = "#fff0f3"; // Changes color when unlocked
+            } else {
+                document.getElementById('error-msg').style.display = 'block';
+            }
+        }
+    </script>
 </body>
 </html>
