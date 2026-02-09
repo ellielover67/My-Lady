@@ -3,91 +3,138 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>A Message for Alyna</title>
+    <title>For My Ladybug ❤️</title>
     <style>
         body {
-            background-color: #1a1a1a;
-            color: #ff4d6d;
-            font-family: 'Arial', sans-serif;
+            background-color: #03045e; /* Deep Blue */
+            background-image: radial-gradient(#0077b6 15%, transparent 16%),
+                              radial-gradient(#0077b6 15%, transparent 16%);
+            background-size: 60px 60px;
+            background-position: 0 0, 30px 30px;
             display: flex;
             align-items: center;
             justify-content: center;
             height: 100vh;
             margin: 0;
             overflow: hidden;
+            font-family: 'Arial', sans-serif;
+            color: #caf0f8;
         }
 
-        /* Password Screen Styling */
-        #login-screen {
-            text-align: center;
-            background: #2d2d2d;
+        #login-screen, #secret-content {
+            background: #001219; /* Very Dark Blue */
             padding: 40px;
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            border-radius: 30px;
+            border: 3px solid #00b4d8;
+            box-shadow: 0 0 25px rgba(0, 180, 216, 0.5);
+            text-align: center;
+            max-width: 400px;
+            position: relative;
             z-index: 10;
         }
 
+        #secret-content { display: none; }
+
+        h1, h2 { color: #90e0ef; margin-top: 0; }
+
         input {
-            padding: 10px;
-            border-radius: 5px;
-            border: none;
-            margin: 10px 0;
-            text-align: center;
-            font-size: 1.2rem;
+            padding: 12px;
+            border: 2px solid #00b4d8;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            width: 80%;
+            font-size: 1rem;
+            background: #023e8a;
+            color: white;
+            outline: none;
         }
 
         button {
-            background: #ff4d6d;
-            color: white;
+            background: #00b4d8;
+            color: #03045e;
             border: none;
-            padding: 10px 20px;
-            border-radius: 5px;
+            padding: 12px 25px;
+            border-radius: 50px;
             cursor: pointer;
             font-weight: bold;
+            transition: 0.3s;
         }
 
-        /* Hidden Content */
-        #secret-content {
-            display: none;
-            text-align: center;
+        button:hover { background: #90e0ef; transform: scale(1.05); }
+
+        /* Styling the Blue Ladybug Icon */
+        .ladybug-svg {
+            width: 60px;
+            height: 60px;
+            fill: #00b4d8; /* Deep Blue Ladybug color */
+            margin-bottom: 10px;
         }
 
-        .heart { font-size: 5rem; animation: pulse 1s infinite; }
+        .heart { color: #90e0ef; font-size: 4rem; animation: pulse 1.5s infinite; }
+
+        .crawling-ladybug {
+            position: fixed;
+            z-index: 5;
+            pointer-events: none;
+        }
+
         @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.1); }
-            100% { transform: scale(1); }
+            0% { transform: scale(1); opacity: 0.8; }
+            50% { transform: scale(1.1); opacity: 1; }
+            100% { transform: scale(1); opacity: 0.8; }
         }
     </style>
 </head>
 <body>
 
     <div id="login-screen">
-        <h2>Enter the Secret Code</h2>
+        <svg class="ladybug-svg" viewBox="0 0 512 512"><path d="M256 32a192 192 0 0 0 -192 192c0 10.7 1.2 21 3.4 31.1C24.4 274.6 0 316.5 0 362.7c0 71.4 57.8 129.3 129.3 129.3 35.8 0 68.2-14.5 91.7-38 11.2 3.8 23.2 6 35 6s23.8-2.2 35-6c23.5 23.5 55.9 38 91.7 38 71.4 0 129.3-57.8 129.3-129.3 0-46.1-24.4-88.1-67.4-107.6 2.2-10.1 3.4-20.4 3.4-31.1A192 192 0 0 0 256 32zM160 224a32 32 0 1 1 32 32 32 32 0 0 1 -32-32zm160 32a32 32 0 1 1 32-32 32 32 0 0 1 -32 32z"/></svg>
+        <h2>Enter the Code</h2>
         <input type="password" id="passwordInput" placeholder="Enter password...">
         <br>
         <button onclick="checkPassword()">Unlock My Heart</button>
-        <p id="error-msg" style="color: #ffb3c1; font-size: 0.8rem; display: none;">Oops! Wrong code.</p>
+        <p id="error-msg" style="color: #90e0ef; display: none; margin-top: 10px;">Incorrect Code!</p>
     </div>
 
     <div id="secret-content">
-        <div class="heart">❤️</div>
+        <div class="heart">💙</div>
         <h1>Happy Valentine's Day, Alyna!</h1>
-        <p>You are my favorite person in the world.</p>
-        <p>— From Yusuf</p>
+        <p>You're my one and only.</p>
+        <p>I love you so much!</p>
+        <p style="font-style: italic;">— Yusuf</p>
     </div>
 
     <script>
         function checkPassword() {
             const pass = document.getElementById('passwordInput').value;
-            const correctPass = "201125";
-            
-            if (pass === correctPass) {
+            if (pass === "201125") {
                 document.getElementById('login-screen').style.display = 'none';
                 document.getElementById('secret-content').style.display = 'block';
-                document.body.style.backgroundColor = "#fff0f3"; // Changes color when unlocked
+                startLadybugRain();
             } else {
                 document.getElementById('error-msg').style.display = 'block';
+            }
+        }
+
+        function startLadybugRain() {
+            for (let i = 0; i < 30; i++) {
+                setTimeout(() => {
+                    const bug = document.createElement('div');
+                    // Creating a blue ladybug SVG for the animation
+                    bug.innerHTML = `<svg width="30" height="30" viewBox="0 0 512 512" style="fill: #90e0ef;"><path d="M256 32a192 192 0 0 0 -192 192c0 10.7 1.2 21 3.4 31.1C24.4 274.6 0 316.5 0 362.7c0 71.4 57.8 129.3 129.3 129.3 35.8 0 68.2-14.5 91.7-38 11.2 3.8 23.2 6 35 6s23.8-2.2 35-6c23.5 23.5 55.9 38 91.7 38 71.4 0 129.3-57.8 129.3-129.3 0-46.1-24.4-88.1-67.4-107.6 2.2-10.1 3.4-20.4 3.4-31.1A192 192 0 0 0 256 32z"/></svg>`;
+                    bug.className = 'crawling-ladybug';
+                    bug.style.left = Math.random() * 100 + 'vw';
+                    bug.style.top = '-50px';
+                    bug.style.transition = `top ${Math.random() * 3 + 3}s linear`;
+                    
+                    document.body.appendChild(bug);
+
+                    setTimeout(() => {
+                        bug.style.top = '110vh';
+                    }, 100);
+
+                    setTimeout(() => bug.remove(), 6000);
+                }, i * 300);
             }
         }
     </script>
