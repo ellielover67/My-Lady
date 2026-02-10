@@ -11,31 +11,26 @@
             width: 100%;
             height: 100%;
             overflow: hidden;
-            /* Solid blue background-color removed */
+            /* Background color removed to make spiral.png the sole background */
             display: flex;
             align-items: center;
             justify-content: center;
             font-family: 'Arial', sans-serif;
         }
 
-        /* THE ANIMATED SPIRAL BACKGROUND */
+        /* SOLE STATIC BACKGROUND */
         .background-spiral {
             position: fixed;
-            top: 50%;
-            left: 50%;
-            width: 250vw;
-            height: 250vw;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            /* Pointing to your spiral image on GitHub */
             background-image: url('https://raw.githubusercontent.com/ellielover67/My-Lady/main/abstract-swirl-background-blue-black-twisted-spiral-ray-stripes-illustration-design-wallpaper-burst-comic-explosion-new-142942552.webp');
             background-size: cover;
             background-position: center;
-            transform: translate(-50%, -50%);
             z-index: -1;
-            animation: spinSpiral 25s linear infinite;
-        }
-
-        @keyframes spinSpiral {
-            from { transform: translate(-50%, -50%) rotate(0deg); }
-            to { transform: translate(-50%, -50%) rotate(360deg); }
+            /* Animation removed - the image is now still */
         }
 
         #login-screen, #secret-content {
