@@ -10,30 +10,33 @@
             margin: 0;
             overflow: hidden;
             font-family: 'Arial', sans-serif;
-            color: #caf0f8;
             display: flex;
             align-items: center;
             justify-content: center;
             height: 100vh;
         }
 
-        /* Rotating Spiral Background */
+        /* This creates the actual SPIRAL effect */
         .spiral-bg {
             position: fixed;
             top: 50%;
             left: 50%;
-            width: 300vw;
-            height: 300vw;
-            background: repeating-conic-gradient(
-                from 0deg,
-                #03045e 0deg 15deg,
-                #023e8a 15deg 30deg,
-                #0077b6 30deg 45deg
+            width: 400vw; /* Extra wide to cover corners while rotating */
+            height: 400vw;
+            /* Using a conic gradient for the spiral blades */
+            background: conic-gradient(
+                #03045e 0deg 18deg, 
+                #0077b6 18deg 36deg, 
+                #023e8a 36deg 54deg,
+                #00b4d8 54deg 72deg
             );
+            background-repeat: repeat;
+            /* Centering the spiral */
+            transform-origin: center;
             transform: translate(-50%, -50%);
             z-index: -1;
-            animation: rotateSpiral 25s linear infinite;
-            filter: blur(2px);
+            /* The rotation makes it feel like a spiral winding inward/outward */
+            animation: rotateSpiral 15s linear infinite;
         }
 
         @keyframes rotateSpiral {
@@ -42,27 +45,24 @@
         }
 
         #login-screen, #secret-content {
-            background: rgba(0, 18, 25, 0.85);
+            background: rgba(0, 18, 25, 0.9);
             padding: 40px;
             border-radius: 30px;
-            border: 3px solid #bde0fe; /* Cinnamoroll Blue */
-            box-shadow: 0 0 30px rgba(189, 224, 254, 0.4);
+            border: 3px solid #ade8f4;
+            box-shadow: 0 0 30px rgba(173, 232, 244, 0.4);
             text-align: center;
             max-width: 400px;
-            position: relative;
             z-index: 10;
             backdrop-filter: blur(10px);
         }
 
         #secret-content { display: none; }
 
-        h1, h2 { color: #ade8f4; margin-top: 10px; }
-
         input {
             padding: 12px;
             border: 2px solid #00b4d8;
             border-radius: 10px;
-            margin-bottom: 20px;
+            margin: 20px 0;
             width: 85%;
             background: #023e8a;
             color: white;
@@ -77,30 +77,11 @@
             border-radius: 50px;
             cursor: pointer;
             font-weight: bold;
-            transition: 0.3s;
         }
 
-        button:hover { background: #white; transform: scale(1.05); }
-
-        /* Character Styles */
-        .domo-guard {
+        .main-img {
             width: 120px;
             filter: drop-shadow(0 0 10px rgba(0,0,0,0.5));
-        }
-
-        .floating-char {
-            position: fixed;
-            width: 80px;
-            z-index: 5;
-            pointer-events: none;
-            transition: all 4s ease-in-out;
-        }
-
-        .heart { color: #caf0f8; font-size: 4rem; animation: pulse 1.5s infinite; }
-
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.1); }
         }
     </style>
 </head>
@@ -109,21 +90,17 @@
     <div class="spiral-bg"></div>
 
     <div id="login-screen">
-        <img src="https://i.pinimg.com/originals/f3/04/70/f304707e78b736735559093e03823483.png" class="domo-guard" alt="Domo">
+        <img src="https://upload.wikimedia.org/wikipedia/en/thumb/5/59/Cinnamoroll.png/220px-Cinnamoroll.png" class="main-img" alt="Cinnamoroll">
         <h2>Unlock for Alyna</h2>
         <input type="password" id="passwordInput" placeholder="Enter password...">
         <br>
         <button onclick="checkPassword()">Open Message</button>
-        <p id="error-msg" style="color: #ffafcc; display: none; margin-top: 10px;">Incorrect Code!</p>
     </div>
 
     <div id="secret-content">
-        <img src="https://upload.wikimedia.org/wikipedia/en/thumb/5/59/Cinnamoroll.png/220px-Cinnamoroll.png" style="width:120px;" alt="Cinnamoroll">
-        <div class="heart">💙</div>
         <h1>Happy Valentine's Day!</h1>
-        <p>To my favorite person, Alyna.</p>
-        <p>I love you to the moon and back!</p>
-        <p style="font-style: italic;">— Always, Yusuf</p>
+        <p>You're my one and only, Alyna.</p>
+        <p>— Yusuf</p>
     </div>
 
     <script>
@@ -132,40 +109,6 @@
             if (pass === "201125") {
                 document.getElementById('login-screen').style.display = 'none';
                 document.getElementById('secret-content').style.display = 'block';
-                spawnCharacters();
-            } else {
-                document.getElementById('error-msg').style.display = 'block';
-            }
-        }
-
-        function spawnCharacters() {
-            // Links to blue ladybugs, Cinnamoroll, and Domo images
-            const images = [
-                'blue-ladybug.png', // Blue Ladybug
-                'Cinnamoroll.png', // Cinnamoroll
-                'domo-guard' // Domo
-            ];
-
-            for (let i = 0; i < 20; i++) {
-                const char = document.createElement('img');
-                char.src = images[i % images.length];
-                char.className = 'floating-char';
-                
-                // If it's the ladybug, make it blue
-                if (i % images.length === 0) {
-                    char.style.filter = 'hue-rotate(180deg)';
-                }
-
-                char.style.left = Math.random() * 100 + 'vw';
-                char.style.top = Math.random() * 100 + 'vh';
-                
-                document.body.appendChild(char);
-
-                setInterval(() => {
-                    char.style.left = Math.random() * 100 + 'vw';
-                    char.style.top = Math.random() * 100 + 'vh';
-                    char.style.transform = `rotate(${Math.random() * 40 - 20}deg)`;
-                }, 4000);
             }
         }
     </script>
