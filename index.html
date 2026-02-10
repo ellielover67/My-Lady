@@ -18,29 +18,24 @@
             font-family: 'Arial', sans-serif;
         }
 
-        /* TRUE CURVED SPIRAL BACKGROUND */
-        .spiral-bg {
+        /* THE ANIMATED SPIRAL IMAGE BACKGROUND */
+        .background-spiral {
             position: fixed;
             top: 50%;
             left: 50%;
-            width: 300vw;
-            height: 300vw;
-            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><path d="M50 50 Q 70 10 90 50 T 50 90 T 10 50 T 50 10" fill="none" stroke="%2300b4d8" stroke-width="2"/></svg>');
-            /* Using a high-quality CSS spiral pattern */
-            background: repeating-conic-gradient(from 0deg, #03045e 0deg 20deg, #023e8a 20deg 40deg, #0077b6 40deg 60deg);
-            /* This mask creates the "curved" optical illusion */
-            border-radius: 50%;
-            mask-image: radial-gradient(circle, black 20%, transparent 80%);
-            -webkit-mask-image: radial-gradient(circle, black 20%, transparent 80%);
-            
+            width: 250vw; /* Wide enough to hide edges while rotating */
+            height: 250vw;
+            background-image: url('spiral.png'); /* References your uploaded image */
+            background-size: cover;
+            background-position: center;
             transform: translate(-50%, -50%);
             z-index: -1;
-            animation: rotateVortex 12s linear infinite;
+            animation: spinSpiral 20s linear infinite;
         }
 
-        @keyframes rotateVortex {
-            from { transform: translate(-50%, -50%) rotate(0deg) scale(1); }
-            to { transform: translate(-50%, -50%) rotate(360deg) scale(1.2); }
+        @keyframes spinSpiral {
+            from { transform: translate(-50%, -50%) rotate(0deg); }
+            to { transform: translate(-50%, -50%) rotate(360deg); }
         }
 
         #login-screen, #secret-content {
@@ -68,6 +63,7 @@
             color: white;
             text-align: center;
             font-size: 1.1rem;
+            outline: none;
         }
 
         button {
@@ -79,6 +75,12 @@
             cursor: pointer;
             font-weight: bold;
             font-size: 1rem;
+            transition: 0.3s;
+        }
+
+        button:hover {
+            transform: scale(1.05);
+            background: white;
         }
 
         .main-img {
@@ -98,7 +100,7 @@
 </head>
 <body>
 
-    <div class="spiral-bg"></div>
+    <div class="background-spiral"></div>
 
     <div id="login-screen">
         <img src="domo.png" class="main-img" alt="Domo">
@@ -114,12 +116,13 @@
         <h1>Will you be my girlfriend?</h1>
         <p>Ive been meaning to ask you this forever, originally with the game.</p>
         <p>I love you endlessly</p>
-        <p>your awesome cool smart handsome to be boyfriend</p>
+        <p>— your awesome cool smart handsome to be boyfriend</p>
     </div>
 
     <script>
         function checkPassword() {
             const pass = document.getElementById('passwordInput').value;
+            // The secret date code
             if (pass === "201125") {
                 document.getElementById('login-screen').style.display = 'none';
                 document.getElementById('secret-content').style.display = 'block';
@@ -152,9 +155,6 @@
                 }, 4000);
             }
         }
-    </script>
-</body>
-</html>
     </script>
 </body>
 </html>
