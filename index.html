@@ -11,27 +11,24 @@
             width: 100%;
             height: 100%;
             overflow: hidden;
-            /* Background color removed to make spiral.png the sole background */
             display: flex;
             align-items: center;
             justify-content: center;
             font-family: 'Arial', sans-serif;
         }
 
-     /* SOLE STATIC BACKGROUND */
+        /* SOLE STATIC BACKGROUND */
         .background-spiral {
             position: fixed;
             top: 0;
             left: 0;
             width: 100vw;
             height: 100vh;
-            /* This tells the code to look for the file named spiral.png in your folder */
-            background-image: url('spiral.png'); 
+            /* Using the file from your GitHub repository */
+            background-image: url('https://raw.githubusercontent.com/ellielover67/My-Lady/main/spiral.png');
             background-size: cover;
             background-position: center;
             z-index: -1;
-        }
-            /* Animation removed - the image is now still */
         }
 
         #login-screen, #secret-content {
