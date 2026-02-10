@@ -23,9 +23,9 @@
             position: fixed;
             top: 50%;
             left: 50%;
-            width: 250vw; /* Wide enough to hide edges while rotating */
+            width: 250vw;
             height: 250vw;
-            background-image: url('spiral.png'); /* References your uploaded image */
+            background-image: url('spiral.png');
             background-size: cover;
             background-position: center;
             transform: translate(-50%, -50%);
@@ -45,7 +45,7 @@
             border: 3px solid #ade8f4;
             box-shadow: 0 0 50px rgba(0, 180, 216, 0.7);
             text-align: center;
-            max-width: 350px;
+            max-width: 380px;
             z-index: 10;
             backdrop-filter: blur(15px);
             color: #caf0f8;
@@ -66,6 +66,14 @@
             outline: none;
         }
 
+        .btn-container {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 25px;
+            position: relative;
+        }
+
         button {
             background: #ade8f4;
             color: #03045e;
@@ -78,8 +86,14 @@
             transition: 0.3s;
         }
 
-        button:hover {
-            transform: scale(1.05);
+        #no-btn {
+            position: absolute;
+            background: #ffafcc;
+            transition: 0.2s ease;
+        }
+
+        #yes-btn:hover {
+            transform: scale(1.2);
             background: white;
         }
 
@@ -95,6 +109,20 @@
             pointer-events: none;
             z-index: 5;
             transition: all 4s ease-in-out;
+        }
+
+        #success-msg {
+            display: none;
+            font-size: 1.5rem;
+            color: #ffafcc;
+            margin-top: 20px;
+            animation: pulse 1s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
         }
     </style>
 </head>
@@ -117,12 +145,17 @@
         <p>Ive been meaning to ask you this forever, originally with the game.</p>
         <p>I love you endlessly</p>
         <p>— your awesome cool smart handsome to be boyfriend</p>
+        
+        <div class="btn-container">
+            <button id="yes-btn" onclick="sayYes()">YES! 💙</button>
+            <button id="no-btn" onmouseover="moveNo()">No</button>
+        </div>
+        <div id="success-msg">Yay! I love you! 🥰</div>
     </div>
 
     <script>
         function checkPassword() {
             const pass = document.getElementById('passwordInput').value;
-            // The secret date code
             if (pass === "201125") {
                 document.getElementById('login-screen').style.display = 'none';
                 document.getElementById('secret-content').style.display = 'block';
@@ -132,28 +165,38 @@
             }
         }
 
-        function spawnItems() {
-            const items = [
-                'domo.png',
-                'cinamoroll.png',
-                'blue-ladybug.png'
-            ];
+        function moveNo() {
+            const x = Math.random() * (window.innerWidth - 100);
+            const y = Math.random() * (window.innerHeight - 50);
+            const noBtn = document.getElementById('no-btn');
+            noBtn.style.position = 'fixed';
+            noBtn.style.left = x + 'px';
+            noBtn.style.top = y + 'px';
+        }
 
-            for (let i = 0; i < 18; i++) {
-                const img = document.createElement('img');
-                img.src = items[i % items.length];
-                img.className = 'floating-char';
-                
+        function sayYes() {
+            document.querySelector('.btn-container').style.display = 'none';
+            document.getElementById('success-msg').style.display = 'block';
+            // Increase the character rain for celebration
+            for(let i=0; i<20; i++) {
+                setTimeout(spawnItems, i * 100);
+            }
+        }
+
+        function spawnItems() {
+            const items = ['domo.png', 'cinamoroll.png', 'blue-ladybug.png'];
+            const img = document.createElement('img');
+            img.src = items[Math.floor(Math.random() * items.length)];
+            img.className = 'floating-char';
+            img.style.left = Math.random() * 100 + 'vw';
+            img.style.top = Math.random() * 100 + 'vh';
+            document.body.appendChild(img);
+
+            setInterval(() => {
                 img.style.left = Math.random() * 100 + 'vw';
                 img.style.top = Math.random() * 100 + 'vh';
-                document.body.appendChild(img);
-
-                setInterval(() => {
-                    img.style.left = Math.random() * 100 + 'vw';
-                    img.style.top = Math.random() * 100 + 'vh';
-                    img.style.transform = `rotate(${Math.random() * 360}deg)`;
-                }, 4000);
-            }
+                img.style.transform = `rotate(${Math.random() * 360}deg)`;
+            }, 4000);
         }
     </script>
 </body>
