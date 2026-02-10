@@ -18,19 +18,20 @@
             font-family: 'Arial', sans-serif;
         }
 
-        /* THE ANIMATED SPIRAL IMAGE BACKGROUND */
+        /* THE ANIMATED SPIRAL BACKGROUND */
         .background-spiral {
             position: fixed;
             top: 50%;
             left: 50%;
             width: 250vw;
             height: 250vw;
-            background-image: url('spiral.png');
+            /* Using the high-quality spiral image directly */
+            background-image: url('https://raw.githubusercontent.com/ellielover67/My-Lady/main/abstract-swirl-background-blue-black-twisted-spiral-ray-stripes-illustration-design-wallpaper-burst-comic-explosion-new-142942552.webp');
             background-size: cover;
             background-position: center;
             transform: translate(-50%, -50%);
             z-index: -1;
-            animation: spinSpiral 20s linear infinite;
+            animation: spinSpiral 25s linear infinite;
         }
 
         @keyframes spinSpiral {
@@ -91,11 +92,10 @@
             position: absolute;
             background: #ffafcc;
             transition: 0.15s ease;
-            white-space: nowrap;
         }
 
         #yes-btn:hover {
-            transform: scale(1.2);
+            transform: scale(1.1);
             background: white;
         }
 
@@ -133,8 +133,8 @@
     <div class="background-spiral"></div>
 
     <div id="login-screen">
-        <img src="domo.png" class="main-img" alt="Domo">
-        <h2>unlock it and youll see the secret message 👀</h2>
+        <img src="https://raw.githubusercontent.com/ellielover67/My-Lady/main/domo.png" class="main-img" alt="Domo">
+        <h2>Unlock for Alyna 👀</h2>
         <input type="password" id="passwordInput" placeholder="Enter password...">
         <br>
         <button onclick="checkPassword()">Open Message</button>
@@ -142,11 +142,10 @@
     </div>
 
     <div id="secret-content">
-        <img src="cinamoroll.png" class="main-img" alt="Cinamoroll">
+        <img src="https://raw.githubusercontent.com/ellielover67/My-Lady/main/cinamoroll.png" class="main-img" alt="Cinamoroll">
         <h1>Will you be my girlfriend?</h1>
-        <p>Ive been meaning to ask you this forever, originally with the game.</p>
-        <p>I love you endlessly</p>
-        <p>— your awesome cool smart handsome to be boyfriend</p>
+        <p>I love you endlessly ❤️</p>
+        <p>— your awesome cool smart handsome boyfriend-to-be</p>
         
         <div class="btn-container">
             <button id="yes-btn" onclick="sayYes()">YES! 💙</button>
@@ -170,14 +169,10 @@
         function moveNo() {
             const noBtn = document.getElementById('no-btn');
             const padding = 100; 
-            
-            // Calculate safe boundaries
             const maxX = window.innerWidth - noBtn.offsetWidth - padding;
             const maxY = window.innerHeight - noBtn.offsetHeight - padding;
-
             const randomX = Math.max(padding, Math.floor(Math.random() * maxX));
             const randomY = Math.max(padding, Math.floor(Math.random() * maxY));
-
             noBtn.style.position = 'fixed';
             noBtn.style.left = randomX + 'px';
             noBtn.style.top = randomY + 'px';
@@ -186,19 +181,20 @@
         function sayYes() {
             document.querySelector('.btn-container').style.display = 'none';
             document.getElementById('success-msg').style.display = 'block';
-            
-            // Celebration rain
             for(let i=0; i<30; i++) {
                 setTimeout(spawnItems, i * 150);
             }
         }
 
         function spawnItems() {
-            const items = ['domo.png', 'cinamoroll.png', 'blue-ladybug.png'];
+            const items = [
+                'https://raw.githubusercontent.com/ellielover67/My-Lady/main/domo.png',
+                'https://raw.githubusercontent.com/ellielover67/My-Lady/main/cinamoroll.png',
+                'https://raw.githubusercontent.com/ellielover67/My-Lady/main/blue-ladybug.png'
+            ];
             const img = document.createElement('img');
             img.src = items[Math.floor(Math.random() * items.length)];
             img.className = 'floating-char';
-            
             img.style.left = Math.random() * 100 + 'vw';
             img.style.top = Math.random() * 100 + 'vh';
             document.body.appendChild(img);
